@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import logo from './assets/logo.png';
 import { Search, Bell, User, Filter, TrendingUp, MapPin, Calendar, DollarSign, FileText, Download, MessageCircle, Settings, LogOut, Eye, Heart, Users, Zap, Bot, Activity } from 'lucide-react';
 
 // Types
@@ -110,10 +111,7 @@ const Navbar = ({ user, currentView, setCurrentView, onLogout }: any) => (
       <div className="flex justify-between items-center h-16">
         <div className="flex items-center space-x-8">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <Zap className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-gray-900">FundingAI</span>
+            <img src={logo} alt="Logo Pesquisador de Editais" className="h-8 w-auto" />
           </div>
           
           <div className="flex space-x-6">
@@ -263,7 +261,7 @@ const Dashboard = ({ opportunities, onToggleFavorite, onView }: any) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Buscador de Fomento</h1>
         <p className="text-gray-600">Acompanhe as melhores oportunidades para sua startup</p>
       </div>
       
@@ -358,7 +356,7 @@ const Dashboard = ({ opportunities, onToggleFavorite, onView }: any) => {
   );
 };
 
-const SmartSearch = () => {
+const SmartSearch = ({ opportunities }: { opportunities: Opportunity[] }) => {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Olá! Sou seu assistente de busca inteligente. Posso te ajudar a encontrar oportunidades de financiamento. Pergunte algo como "Quais bolsas de IA estão abertas no Brasil?" ou "Editais de healthtech com prazo até março".' }
@@ -366,19 +364,39 @@ const SmartSearch = () => {
   
   const handleSend = () => {
     if (!query.trim()) return;
-    
+
     const userMessage = { role: 'user', content: query };
     setMessages(prev => [...prev, userMessage]);
-    
-    // Simulação de resposta inteligente
+
     setTimeout(() => {
-      const response = { 
-        role: 'assistant', 
-        content: `Com base na sua consulta "${query}", encontrei 3 oportunidades relevantes:\n\n1. **FINEP - Subvenção IA** - R$ 500.000 - Prazo: 15/03/2024\n2. **CNPq - Bolsa Healthtech** - R$ 3.000/mês - Prazo: 28/02/2024\n3. **Horizonte Europa** - € 2.000.000 - Prazo: 10/04/2024\n\nGostaria de ver mais detalhes de alguma dessas oportunidades?`
+      const lowerCaseQuery = query.toLowerCase();
+      const filteredOpportunities = opportunities.filter(opp => {
+        return (
+          opp.title.toLowerCase().includes(lowerCaseQuery) ||
+          opp.description.toLowerCase().includes(lowerCaseQuery) ||
+          opp.category.toLowerCase().includes(lowerCaseQuery) ||
+          opp.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
+        );
+      });
+
+      let responseContent = '';
+      if (filteredOpportunities.length > 0) {
+        responseContent = `Com base na sua consulta "${query}", encontrei ${filteredOpportunities.length} oportunidades relevantes:\n\n`;
+        filteredOpportunities.forEach((opp, index) => {
+          responseContent += `${index + 1}. **${opp.title}** - ${opp.amount} - Prazo: ${new Date(opp.deadline).toLocaleDateString('pt-BR')}\n`;
+        });
+        responseContent += '\nGostaria de ver mais detalhes de alguma dessas oportunidades?';
+      } else {
+        responseContent = `Desculpe, não encontrei nenhuma oportunidade para a sua busca "${query}". Tente outros termos.`;
+      }
+
+      const response = {
+        role: 'assistant',
+        content: responseContent
       };
       setMessages(prev => [...prev, response]);
     }, 1000);
-    
+
     setQuery('');
   };
 
@@ -687,11 +705,9 @@ const LoginForm = ({ onLogin }: any) => {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center">
-              <Zap className="h-8 w-8 text-white" />
-            </div>
+            <img src={logo} alt="Logo Pesquisador de Editais" className="h-16 w-auto" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">FundingAI</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">buscador de fomento</h1>
           <p className="text-gray-600">Encontre as melhores oportunidades para sua startup</p>
         </div>
         
@@ -803,7 +819,7 @@ function App() {
         />
       )}
       
-      {currentView === 'search' && <SmartSearch />}
+      {currentView === 'search' && <SmartSearch opportunities={opportunities} />}
       
       {currentView === 'profile' && (
         <Profile 
