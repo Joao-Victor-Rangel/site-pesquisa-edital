@@ -3,6 +3,7 @@ from typing import List, Dict, Any, Optional
 import logging
 from datetime import datetime
 import asyncio
+import os
 
 from app.agents.collector_agent import CollectorAgent
 from app.agents.classifier_agent import ClassifierAgent
@@ -19,6 +20,7 @@ class CrewManager:
         self.classifier = ClassifierAgent()
         self.ranker = RankingAgent()
         self.notifier = NotificationAgent()
+        self.collector.collect_opportunities()
         
         self.crew = Crew(
             agents=[
@@ -47,7 +49,11 @@ class CrewManager:
         try:
             # Step 1: Collect opportunities
             logger.info("Step 1: Collecting opportunities...")
-            raw_opportunities = self.collector.get_mock_opportunities()  # Use mock data for demo
+            use_mock = os.getenv("USE_MOCK", "false").lower() == "true"
+            if use_mock:
+              raw_opportunities = self.collector.get_mock_opportunities()
+            else:
+                raw_opportunities = self.collector.collect_opportunities()
             pipeline_results['collected'] = len(raw_opportunities)
             
             if not raw_opportunities:
@@ -67,10 +73,9 @@ class CrewManager:
                     success = pinecone_client.upsert_vectors(vectors)
                     if success:
                         pipeline_results['indexed'] = len(vectors)
-            
-            # Step 4: Store in database (would be implemented with actual DB operations)
+                        
+                        
             logger.info("Step 4: Storing in database...")
-            # This would involve actual database operations
             
             pipeline_results['end_time'] = datetime.now()
             pipeline_results['duration'] = (pipeline_results['end_time'] - pipeline_results['start_time']).total_seconds()

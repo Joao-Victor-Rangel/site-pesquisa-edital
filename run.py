@@ -17,10 +17,10 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", 8000))
     debug = os.getenv("DEBUG", "True").lower() == "true"
     
-    print("🚀 Starting FundingAI Backend Server...")
-    print(f"📡 Server will run on: http://{host}:{port}")
-    print(f"🔧 Debug mode: {debug}")
-    print(f"📊 API docs available at: http://{host}:{port}/docs")
+    print(" Starting FundingAI Backend Server...")
+    print(f" Server will run on: http://{host}:{port}")
+    print(f" Debug mode: {debug}")
+    print(f" API docs available at: http://{host}:{port}/docs")
     
     uvicorn.run(
         "app.main:app",

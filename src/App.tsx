@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import logo from './assets/logo.png';
 import { Search, Bell, User, Filter, TrendingUp, MapPin, Calendar, DollarSign, FileText, Download, MessageCircle, Settings, LogOut, Eye, Heart, Users, Zap, Bot, Activity } from 'lucide-react';
 
 // Types
@@ -106,60 +105,67 @@ const mockUser: UserProfile = {
 
 // Components
 const Navbar = ({ user, currentView, setCurrentView, onLogout }: any) => (
-  <nav className="bg-white shadow-sm border-b border-gray-200">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="flex justify-between items-center h-16">
-        <div className="flex items-center space-x-8">
-          <div className="flex items-center space-x-2">
-            <img src={logo} alt="Logo Pesquisador de Editais" className="h-8 w-auto" />
-          </div>
-          
-          <div className="flex space-x-6">
-            {['dashboard', 'search', 'profile', 'agents'].map((view) => (
-              <button
-                key={view}
-                onClick={() => setCurrentView(view)}
-                className={`px-3 py-2 text-sm font-medium capitalize transition-colors ${
-                  currentView === view 
-                    ? 'text-blue-600 border-b-2 border-blue-600' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                {view === 'agents' ? 'Agentes' : view === 'search' ? 'Busca' : view === 'profile' ? 'Perfil' : 'Dashboard'}
-              </button>
-            ))}
-          </div>
-        </div>
+<nav className="bg-white shadow-sm border-b border-gray-200">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-between items-center h-16">
+      <div className="flex items-center space-x-8">
         
-        <div className="flex items-center space-x-4">
-          <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+        <div className="flex items-center space-x-2">
+          <img 
+            src="src\assets\logo1.png"   
+            alt="OportunidadeIA" 
+            className="h-8 w-auto"
+          />
+          <span className="text-xl font-bold text-gray-900">OportunidadeIA</span>
+        </div>
+
+        <div className="flex space-x-6">
+          {['dashboard', 'search', 'profile', 'agents'].map((view) => (
+            <button
+              key={view}
+              onClick={() => setCurrentView(view)}
+              className={`px-3 py-2 text-sm font-medium capitalize transition-colors ${
+                currentView === view 
+                  ? 'text-blue-600 border-b-2 border-blue-600' 
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
+            >
+              {view === 'agents' ? 'Agentes' : view === 'search' ? 'Busca' : view === 'profile' ? 'Perfil' : 'Dashboard'}
+            </button>
+          ))}
+        </div>
+      </div>
+      
+      <div className="flex items-center space-x-4">
+        <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors relative">
+          <Bell className="h-5 w-5" />
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+        </button>
+        
+        <div className="relative group">
+          <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+              <User className="h-4 w-4 text-white" />
+            </div>
+            <span className="text-sm font-medium text-gray-700">{user?.name}</span>
           </button>
           
-          <div className="relative group">
-            <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
-                <User className="h-4 w-4 text-white" />
-              </div>
-              <span className="text-sm font-medium text-gray-700">{user?.name}</span>
+          <div className="absolute right-0 top-12 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+            <button 
+              onClick={onLogout}
+              className="w-full flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors rounded-lg"
+            >
+              <LogOut className="h-4 w-4" />
+              <span>Sair</span>
             </button>
-            
-            <div className="absolute right-0 top-12 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
-              <button 
-                onClick={onLogout}
-                className="w-full flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors rounded-lg"
-              >
-                <LogOut className="h-4 w-4" />
-                <span>Sair</span>
-              </button>
-            </div>
           </div>
         </div>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
 );
+
 
 const OpportunityCard = ({ opportunity, onToggleFavorite, onView }: any) => (
   <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-all duration-300 group">
@@ -261,7 +267,7 @@ const Dashboard = ({ opportunities, onToggleFavorite, onView }: any) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Buscador de Fomento</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
         <p className="text-gray-600">Acompanhe as melhores oportunidades para sua startup</p>
       </div>
       
@@ -356,7 +362,7 @@ const Dashboard = ({ opportunities, onToggleFavorite, onView }: any) => {
   );
 };
 
-const SmartSearch = ({ opportunities }: { opportunities: Opportunity[] }) => {
+const SmartSearch = () => {
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Olá! Sou seu assistente de busca inteligente. Posso te ajudar a encontrar oportunidades de financiamento. Pergunte algo como "Quais bolsas de IA estão abertas no Brasil?" ou "Editais de healthtech com prazo até março".' }
@@ -364,39 +370,19 @@ const SmartSearch = ({ opportunities }: { opportunities: Opportunity[] }) => {
   
   const handleSend = () => {
     if (!query.trim()) return;
-
+    
     const userMessage = { role: 'user', content: query };
     setMessages(prev => [...prev, userMessage]);
-
+    
+    // Simulação de resposta inteligente
     setTimeout(() => {
-      const lowerCaseQuery = query.toLowerCase();
-      const filteredOpportunities = opportunities.filter(opp => {
-        return (
-          opp.title.toLowerCase().includes(lowerCaseQuery) ||
-          opp.description.toLowerCase().includes(lowerCaseQuery) ||
-          opp.category.toLowerCase().includes(lowerCaseQuery) ||
-          opp.tags.some(tag => tag.toLowerCase().includes(lowerCaseQuery))
-        );
-      });
-
-      let responseContent = '';
-      if (filteredOpportunities.length > 0) {
-        responseContent = `Com base na sua consulta "${query}", encontrei ${filteredOpportunities.length} oportunidades relevantes:\n\n`;
-        filteredOpportunities.forEach((opp, index) => {
-          responseContent += `${index + 1}. **${opp.title}** - ${opp.amount} - Prazo: ${new Date(opp.deadline).toLocaleDateString('pt-BR')}\n`;
-        });
-        responseContent += '\nGostaria de ver mais detalhes de alguma dessas oportunidades?';
-      } else {
-        responseContent = `Desculpe, não encontrei nenhuma oportunidade para a sua busca "${query}". Tente outros termos.`;
-      }
-
-      const response = {
-        role: 'assistant',
-        content: responseContent
+      const response = { 
+        role: 'assistant', 
+        content: `Com base na sua consulta "${query}", encontrei 3 oportunidades relevantes:\n\n1. **FINEP - Subvenção IA** - R$ 500.000 - Prazo: 15/03/2024\n2. **CNPq - Bolsa Healthtech** - R$ 3.000/mês - Prazo: 28/02/2024\n3. **Horizonte Europa** - € 2.000.000 - Prazo: 10/04/2024\n\nGostaria de ver mais detalhes de alguma dessas oportunidades?`
       };
       setMessages(prev => [...prev, response]);
     }, 1000);
-
+    
     setQuery('');
   };
 
@@ -702,69 +688,76 @@ const LoginForm = ({ onLogin }: any) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center px-4">
-      <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <img src={logo} alt="Logo Pesquisador de Editais" className="h-16 w-auto" />
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">buscador de fomento</h1>
-          <p className="text-gray-600">Encontre as melhores oportunidades para sua startup</p>
+  <div className="max-w-md w-full">
+    <div className="text-center mb-8">
+      {/* Logo */}
+      <div className="flex justify-center mb-4">
+        <img 
+          src="src\assets\logo.png"   
+          alt="OportunidadeIA" 
+          className="h-16 w-auto"
+        />
+      </div>
+
+      <h1 className="text-3xl font-bold text-gray-900 mb-2">OportunidadeIA</h1>
+      <p className="text-gray-600">Encontre as melhores oportunidades para sua startup</p>
+    </div>
+    
+    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+      <div className="mb-6">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+          {isSignUp ? 'Criar conta' : 'Entrar'}
+        </h2>
+        <p className="text-gray-600">
+          {isSignUp ? 'Cadastre sua startup e comece a receber oportunidades' : 'Acesse sua conta'}
+        </p>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="seu@email.com"
+            required
+          />
         </div>
         
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">
-              {isSignUp ? 'Criar conta' : 'Entrar'}
-            </h2>
-            <p className="text-gray-600">
-              {isSignUp ? 'Cadastre sua startup e comece a receber oportunidades' : 'Acesse sua conta'}
-            </p>
-          </div>
-          
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="seu@email.com"
-                required
-              />
-            </div>
-            
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Senha</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                placeholder="••••••••"
-                required
-              />
-            </div>
-            
-            <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium"
-            >
-              {isSignUp ? 'Criar conta' : 'Entrar'}
-            </button>
-          </form>
-          
-          <div className="mt-6 text-center">
-            <button
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
-            >
-              {isSignUp ? 'Já tem conta? Faça login' : 'Não tem conta? Cadastre-se'}
-            </button>
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Senha</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="••••••••"
+            required
+          />
         </div>
+        
+        <button
+          type="submit"
+          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium"
+        >
+          {isSignUp ? 'Criar conta' : 'Entrar'}
+        </button>
+      </form>
+      
+      <div className="mt-6 text-center">
+        <button
+          onClick={() => setIsSignUp(!isSignUp)}
+          className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+        >
+          {isSignUp ? 'Já tem conta? Faça login' : 'Não tem conta? Cadastre-se'}
+        </button>
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 
@@ -819,7 +812,7 @@ function App() {
         />
       )}
       
-      {currentView === 'search' && <SmartSearch opportunities={opportunities} />}
+      {currentView === 'search' && <SmartSearch />}
       
       {currentView === 'profile' && (
         <Profile 
