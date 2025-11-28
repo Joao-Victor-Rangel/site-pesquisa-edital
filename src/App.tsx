@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Search, Bell, User, Filter, TrendingUp, MapPin, Calendar, DollarSign, FileText, Download, MessageCircle, Settings, LogOut, Eye, Heart, Users, Zap, Bot, Activity } from 'lucide-react';
+import React, { useState } from 'react';
+import { Bell, User, Filter, TrendingUp, MapPin, Calendar, DollarSign, FileText, Download, MessageCircle, Settings, LogOut, Eye, Heart, Users, Zap, Bot, Activity } from 'lucide-react';
 
 // Types
 interface Opportunity {
