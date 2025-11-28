@@ -225,10 +225,8 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para detalhes.
 ## 🆘 Suporte
 
 Para suporte técnico ou dúvidas:
-- Email: suporte@fundingai.com
+- Email: jrangel12@unifesp.br
 - Issues: GitHub Issues
 - Documentação: Wiki do projeto
 
 ---
-
-**FundingAI** - Conectando startups às melhores oportunidades de financiamento através de inteligência artificial.
