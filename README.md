@@ -1,8 +1,8 @@
-# FundingAI - Sistema Inteligente de Oportunidades de Financiamento
+# FocoIACapital - Sistema Inteligente de Oportunidades de Financiamento(Em desenvolvimento)
 
 ## 🚀 Visão Geral
 
-FundingAI é uma aplicação SaaS que utiliza inteligência artificial para buscar, classificar e recomendar oportunidades de financiamento para startups. O sistema emprega CrewAI para orquestrar múltiplos agentes especializados, LangChain para processamento de linguagem natural, e Pinecone como banco vetorial para busca semântica.
+FocoIACapital é uma aplicação SaaS que utiliza inteligência artificial para buscar, classificar e recomendar oportunidades de financiamento para startups. O sistema emprega CrewAI para orquestrar múltiplos agentes especializados, LangChain para processamento de linguagem natural, e Pinecone como banco vetorial para busca semântica.
 
 ## 🏗️ Arquitetura
 
